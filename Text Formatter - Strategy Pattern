@@ -1,0 +1,52 @@
+Problem:  You want a text editor where the user can choose how their text should be formatted. The formatting logic can vary, so we’ll apply the Strategy Pattern.
+
+public interface TextType{
+    void publish(String words);
+}
+public class UpperCase implements TextType{
+    private String Type;
+
+    public UpperCase (String Type) {
+        this.Type = Type;
+    }
+
+    @Override
+    public void publish(String words) {
+        System.out.println(words.toUpperCase());
+    }
+}
+public class LowerCase implements TextType {
+    @Override
+    public void publish(String words) {
+        System.out.println(words.toLowerCase());
+    }
+}
+
+public class Text{
+    private TextType texttype;
+
+    
+    public void settexttype(TextType texttype) {
+        this.texttype = texttype;
+    }
+
+    public void word(String words) {
+        if (texttype == null) {
+            System.out.println("Please select a text type.");
+        } else {
+            texttype.publish(words); // This calls the strategy’s pay method.
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Text cart = new Text(); 
+        
+        cart.settexttype(new UpperCase("upper"));
+        cart.word("AbuasxAAABb");
+	
+	cart.settexttype(new LowerCase());
+	cart.word("AbuasxAAABb");
+    }
+}
